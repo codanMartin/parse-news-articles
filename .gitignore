@@ -130,3 +130,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+aa-rute-parsate.json
+bb-articole-parsate.json

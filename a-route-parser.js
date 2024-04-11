@@ -30,10 +30,12 @@ const parseDynamicRoutes = async (linksToParse, parsedLinks, iterations, targetD
 };
 
 const initialDomains = new Set(["https://www.hotnews.ro"])
+
+//TODO Ideal sa coincida macar cu initialDomains daca nu se vrea a se adauga mai multe
 const targetSubdomains = ["https://www.hotnews.ro"]
 
 //TODO Hint, foloseste macar 100 de iteratii (numar iteratii === numar linkuri pe care le primesti inapoi)
 const parsedLinks = await parseDynamicRoutes(initialDomains, new Set(), 100, targetSubdomains)
 
-//TODO Asigura-te ca aa-rute-parsate-1.json este gol sau sters
-await writeSetInJson(parsedLinks, `aa-rute-parsate-1.json`)
+//TODO Asigura-te ca aa-rute-parsate.json este gol sau sters
+await writeSetInJson(parsedLinks, `aa-rute-parsate.json`)

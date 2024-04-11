@@ -1,5 +1,5 @@
 import {retrieveDom, writeSetInJson} from "./c-utils.js";
-import routes from "./aa-rute-parsate-1.json" assert {type: "json"}
+import routes from "./aa-rute-parsate.json" assert {type: "json"}
 
 
 const standardStrategy = (route, data, result) => {
@@ -59,5 +59,5 @@ const retrieveArticlesFromRoutes = async (routesSet) => {
 //TODO Asigura-te ca param routes este importat din fisierul corespunzator si are lungime
 const parsedArticles = await retrieveArticlesFromRoutes(new Set(routes))
 
-//TODO Asigura-te ca bb-articole-parsate-1.json este gol sau sters
-await writeSetInJson(parsedArticles, `bb-articole-parsate-1.json`)
+//TODO Asigura-te ca bb-articole-parsate.json este gol sau sters
+await writeSetInJson(parsedArticles, `bb-articole-parsate.json`)
