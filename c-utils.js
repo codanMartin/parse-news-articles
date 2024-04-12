@@ -28,6 +28,14 @@ export const getBaseUrl = (str) => {
     return str;
 }
 
+export const joinSets = (set1, set2) => {
+    let joinedSet = new Set(set1); // Create a new set with the elements of set1
+
+    for (let elem of set2) joinedSet.add(elem);
+
+    return joinedSet;
+}
+
 export const writeSetInJson = (set, jsonName) => {
     console.log("Writing a set of ", set.size, " elements into ", jsonName)
     let json_array = Array.from(set);

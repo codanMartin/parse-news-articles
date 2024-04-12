@@ -1,4 +1,4 @@
-import {getBaseUrl, retrieveDom, writeSetInJson} from "./c-utils.js";
+import {getBaseUrl, joinSets, retrieveDom, writeSetInJson} from "./c-utils.js";
 
 const parseDynamicRoutes = async (linksToParse, parsedLinks, iterations, targetDomains) => {
     if (iterations > 0) {
@@ -29,13 +29,23 @@ const parseDynamicRoutes = async (linksToParse, parsedLinks, iterations, targetD
     return parsedLinks;
 };
 
-const initialDomains = new Set(["https://www.hotnews.ro"])
+export const parseMultipleInitialDomains = async (initialDomains, targetSubdomains, iterationsPerDomain) => {
+    let result = new Set()
+    for (const domain of initialDomains) {
+        const parsedLinks = await parseDynamicRoutes(new Set([domain]), new Set(), iterationsPerDomain, targetSubdomains)
+        result = joinSets(result, parsedLinks)
+    }
+    await writeSetInJson(result, "aa-rute-parsate.json")
+}
+
+//TODO Linkurile nu trebuie sa se termine in "/"
+const initialDomains = ["https://www.hotnews.ro", "https://www.realitatea.net"]
 
 //TODO Ideal sa coincida macar cu initialDomains daca nu se vrea a se adauga mai multe
-const targetSubdomains = ["https://www.hotnews.ro"]
+//TODO Linkurile nu trebuie sa se termine in "/"
+const targetSubdomains = ["https://www.realitatea.net", "https://www.hotnews.ro"]
 
-//TODO Hint, foloseste macar 100 de iteratii (numar iteratii === numar linkuri pe care le primesti inapoi)
-const parsedLinks = await parseDynamicRoutes(initialDomains, new Set(), 100, targetSubdomains)
-
+//TODO Hint, foloseste macar 50 de iteratii (numar iteratii === numar linkuri pe care le primesti inapoi / domeniu initial)
 //TODO Asigura-te ca aa-rute-parsate.json este gol sau sters
-await writeSetInJson(parsedLinks, `aa-rute-parsate.json`)
+
+await parseMultipleInitialDomains(initialDomains, targetSubdomains, 2)
