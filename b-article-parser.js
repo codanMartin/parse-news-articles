@@ -4,16 +4,19 @@ import routes from "./aa-rute-parsate.json" assert {type: "json"}
 
 const standardStrategy = (route, data, result) => {
     console.log("Applying standard strategy")
-    const article_data = {source: route}
-    article_data.content = data
-    if (!result.has(article_data)) {
-        result.add(article_data)
-    }
+
+        const article_data = {source: route}
+        article_data.content = data
+
+        if (!result.has(article_data)) {
+                console.log("result will be written")
+                result.add(article_data)
+        }
 }
 
 const graphStrategy = (route, data, result) => {
     console.log("Applying @graph strategy")
-    data["@graph"].filter(obj => obj["@type"] === "NewsArticle").forEach(elem => {
+    data["@graph"].filter(obj => obj["@type"] === "NewsArticle" || obj["@type"] === "Article").forEach(elem => {
         standardStrategy(route, elem, result)
     })
 }
@@ -22,7 +25,7 @@ const graphStrategy = (route, data, result) => {
 const arrayOfScriptStrategy = (route, data, result) => {
     console.log("Applying array of scripts strategy")
     for (const elem of data) {
-        if (elem["@type"] === "NewsArticle") {
+        if (elem["@type"] === "NewsArticle" || elem["@type"] === "Article") {
             standardStrategy(route, elem, result)
         }
     }
@@ -41,7 +44,7 @@ const retrieveArticlesFromRoutes = async (routesSet) => {
                 const jsonData = JSON.parse(script.textContent);
                 if (Array.isArray(jsonData)) {
                     arrayOfScriptStrategy(route, jsonData, parserDataResult)
-                } else if (jsonData["@type"] === "NewsArticle") {
+                } else if (jsonData["@type"] === "NewsArticle" || jsonData["@type"] === "Article") {
                     standardStrategy(route, jsonData, parserDataResult)
                 } else if (jsonData["@graph"]) {
                     graphStrategy(route, jsonData, parserDataResult)

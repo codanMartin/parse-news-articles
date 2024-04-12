@@ -5,7 +5,7 @@ import fs from "fs"
 export const retrieveDom = async (link) => {
     //TODO Atentie, raspunsurile sunt intentionat incetinite! Comenteaza liniile 8 si 9 pentru a scoate limitarea
     try {
-        const delay = Math.floor(Math.random() * 1001) + 500;
+        const delay = Math.floor(Math.random() * 10) + 10;
         await new Promise(resolve => setTimeout(resolve, delay));
 
         const raw_page = await fetch(link);
@@ -18,13 +18,10 @@ export const retrieveDom = async (link) => {
 }
 
 export const getBaseUrl = (str) => {
-    const slashCount = (str.match(/\//g) || []).length;
-
-    if (slashCount >= 3) {
-        const thirdSlashIndex = str.indexOf('/', str.indexOf('/', str.indexOf('/') + 1) + 1);
+    const thirdSlashIndex = str.indexOf('/', str.indexOf('/', str.indexOf('/') + 1) + 1);
+    if (thirdSlashIndex !== -1) {
         str = str.slice(0, thirdSlashIndex);
     }
-
     return str;
 }
 

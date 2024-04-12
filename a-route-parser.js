@@ -39,13 +39,23 @@ export const parseMultipleInitialDomains = async (initialDomains, targetSubdomai
 }
 
 //TODO Linkurile nu trebuie sa se termine in "/"
-const initialDomains = ["https://www.hotnews.ro", "https://www.realitatea.net"]
+const initialDomains = [
+    "https://www.realitatea.net",
+    "https://www.hotnews.ro",
+    "https://www.digi24.ro/stiri",
+    "https://adevarul.ro",
+]
 
 //TODO Ideal sa coincida macar cu initialDomains daca nu se vrea a se adauga mai multe
 //TODO Linkurile nu trebuie sa se termine in "/"
-const targetSubdomains = ["https://www.realitatea.net", "https://www.hotnews.ro"]
+const targetSubdomains = [
+    "https://www.realitatea.net",
+    "https://www.hotnews.ro",
+    "https://www.digi24.ro/stiri",
+    "https://adevarul.ro",
+]
 
 //TODO Hint, foloseste macar 100 de iteratii (numar iteratii === numar linkuri pe care le primesti inapoi / domeniu initial)
 //TODO Asigura-te ca aa-rute-parsate.json este gol sau sters
 //TODO Argoritmul merge incet pentru ca ii este limitata viteza pentru a prefeni timeouturi
-await parseMultipleInitialDomains(initialDomains, targetSubdomains, 100)
+await parseMultipleInitialDomains(initialDomains, targetSubdomains, 500)
