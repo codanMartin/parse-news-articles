@@ -5,7 +5,7 @@ import fs from "fs"
 export const retrieveDom = async (link) => {
     //TODO Atentie, raspunsurile sunt intentionat incetinite! Comenteaza liniile 8 si 9 pentru a scoate limitarea
     try {
-        const delay = Math.floor(Math.random() * 501) + 500;
+        const delay = Math.floor(Math.random() * 1001) + 500;
         await new Promise(resolve => setTimeout(resolve, delay));
 
         const raw_page = await fetch(link);
